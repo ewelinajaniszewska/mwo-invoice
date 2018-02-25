@@ -22,11 +22,11 @@ public class Invoice {
 		addProduct(product, 1);
 	}
 
-	public void addProduct(Product product, Integer quantity) {
-		if (product == null || quantity <= 0) {
+	public void addProduct(Product product,Integer quantity) {
+		if (product == null ||  quantity<= 0) {
 			throw new IllegalArgumentException();
 		}
-		products.put(product, quantity);
+		products.put(product,quantity );
 	}
 
 	public BigDecimal getNetTotal() {
@@ -54,5 +54,22 @@ public class Invoice {
 	public int getNumber() {
 		
 		return number;
+	}
+
+
+	public String preparePrint() {
+		
+		String printed = String.valueOf(getNumber());
+		for(Product product: products.keySet()){
+			printed += "\n";
+			printed+= product.getName();
+			printed+= " " + products.get(product);
+			printed+= " " + product.getPrice();
+		}
+		
+		printed+= "Liczba pozycji: " + products.size();
+		
+		return printed;
+		
 	}
 }
